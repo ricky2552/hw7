@@ -39,3 +39,4 @@ var locations = [
         }
       })(marker, i));
     }
+    
