@@ -1,13 +1,18 @@
 var locations = [
     [
-        "David Strong Building",
-        48.464801,
-         -123.313539
+        "Clearihue Building",
+        48.464295,
+         -123.310357
     ],
     [
-    		"ECS",
-        48.461188,
-        -123.311802
+    		"MacLaurin Building",
+        48.463226,
+        -123.313633
+    ],
+    [
+        "McPherson Library",
+        48.463431,
+        -123.309649
     ]
 ]
 
@@ -17,13 +22,20 @@ var locations = [
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+    var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
 
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(locations[i][1], locations[i][2], locations[i][3]),
         map: map
       });
 
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function(){
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
     }
