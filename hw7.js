@@ -32,9 +32,22 @@ var locations = [
         map: map
       });
 
-    (function(i) {
-        google.maps.event.addListener(marker, 'click', function() {
-            alert(location[i][0].trim());
-        });
-    })(i);}
-    
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function(){
+          console.log (marker.position.lat(), marker.position.lng());
+          infowindow.setContent(locations[i][0]+"  "+marker.position.lat()+marker.position.lng());
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    function countMarkers(markers){
+      var count = 0
+      $.each(markers, function (i, marker) {
+        console.log(marker.visible);
+        infowindow.setContent(count)
+        if (marker.visible == true) {
+          count++;
+        }
+      });
+      $('#countBox').val(count);
+    }
