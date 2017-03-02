@@ -32,11 +32,9 @@ var locations = [
         map: map
       });
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function(){
-          infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
-    }
+    (function(i) {
+        google.maps.event.addListener(marker, 'click', function() {
+            alert(location[i][0].trim());
+        });
+    })(i);}
     
