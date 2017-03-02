@@ -25,6 +25,7 @@ var locations = [
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
+    var count = 0;
 
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
@@ -35,19 +36,10 @@ var locations = [
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function(){
           console.log (marker.position.lat(), marker.position.lng());
-          infowindow.setContent(locations[i][0]+"  "+marker.position.lat()+marker.position.lng());
+          count++;
+          infowindow.setContent(locations[i][0]+"  "+marker.position.lat()+marker.position.lng()+"  count:"+count);
           infowindow.open(map, marker);
         }
       })(marker, i));
-    }
-    function countMarkers(markers){
-      var count = 0
-      $.each(markers, function (i, marker) {
-        console.log(marker.visible);
-        infowindow.setContent(count)
-        if (marker.visible == true) {
-          count++;
-        }
-      });
-      $('#countBox').val(count);
+    
     }
