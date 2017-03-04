@@ -41,5 +41,15 @@ var locations = [
           infowindow.open(map, marker);
         }
       })(marker, i));
+
+      google.maps.event.addListener(map, 'zoom_changed', function() {
+          this.zoomChanged = true;
+      });
     
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+        if (this.zoomChanged) {
+            this.zoomChanged = false;
+          console.log (map.getBounds());
+        }
+      });
     }
